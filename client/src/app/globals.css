@@ -17,12 +17,10 @@
   --foreground: oklch(0.985 0 0);
 }
 
-@layer base {
-  * {
-    box-sizing: border-box;margin: 0;
-    padding: 0
-  }
-  body {
+body {
+    font-family: var(--font-geist); /* Geist for all body/UI text */
     @apply bg-background text-foreground;
   }
-}
+  h1, h2, h3 {
+    font-family: var(--font-playfair); /* Playfair auto-applied to all headings */
+  }

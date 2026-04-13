@@ -42,7 +42,7 @@ const Navbar = () => {
 
         {/* RIGHT — Actions */}
         <div className="flex items-center gap-5">
-          <SearchBar />
+          {/* <SearchBar /> */}
           <Link href="/" className="text-gray-700 hover:text-gray-900 transition-colors">
             <Home className="w-5 h-5" />
           </Link>
