@@ -7,10 +7,12 @@ const ProductsPage = async ({
 }) => {
   const category = (await searchParams).category;
   return (
-    <div className="">
-      <ProductList category={category} params="products"/>
+    <div className="pt-20 max-w-[1400px] mx-auto px-6">
+      <ProductList category={category} params="products" />
     </div>
   );
 };
+
+
 
 export default ProductsPage;

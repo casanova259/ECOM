@@ -23,10 +23,7 @@ const ProductCard = ({ product }: { product: ProductType }) => {
     type: "size" | "color";
     value: string;
   }) => {
-    setProductTypes((prev) => ({
-      ...prev,
-      [type]: value,
-    }));
+    setProductTypes((prev) => ({ ...prev, [type]: value }));
   };
 
   const handleAddToCart = () => {
@@ -36,82 +33,91 @@ const ProductCard = ({ product }: { product: ProductType }) => {
       selectedSize: productTypes.size,
       selectedColor: productTypes.color,
     });
-    toast.success("Product added to cart")
+    toast.success("Product added to cart");
   };
 
   return (
-    <div className="shadow-lg rounded-lg overflow-hidden">
+    <div className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
+      
       {/* IMAGE */}
       <Link href={`/products/${product.id}`}>
-        <div className="relative aspect-[2/3]">
+        <div className="relative aspect-[3/4] overflow-hidden bg-gray-50">
           <Image
             src={product.images[productTypes.color]}
             alt={product.name}
             fill
-            className="object-cover hover:scale-105 transition-all duration-300"
+            className="object-cover group-hover:scale-105 transition-transform duration-500"
           />
+          {/* Quick add overlay on hover */}
+          <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <button
+            onClick={(e) => { e.preventDefault(); handleAddToCart(); }}
+            className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white text-gray-900 text-xs font-semibold px-6 py-2.5 rounded-full opacity-0 group-hover:opacity-100 translate-y-3 group-hover:translate-y-0 transition-all duration-300 shadow-lg whitespace-nowrap flex items-center gap-2 hover:bg-gray-900 hover:text-white"
+          >
+            <ShoppingCart className="w-3.5 h-3.5" />
+            Quick Add
+          </button>
         </div>
       </Link>
-      {/* PRODUCT DETAIL */}
-      <div className="flex flex-col gap-4 p-4">
-        <h1 className="font-medium">{product.name}</h1>
-        <p className="text-sm text-gray-500">{product.shortDescription}</p>
-        {/* PRODUCT TYPES */}
-        <div className="flex items-center gap-4 text-xs">
-          {/* SIZES */}
-          <div className="flex flex-col gap-1">
-            <span className="text-gray-500">Size</span>
-            <select
-              name="size"
-              id="size"
-              className="ring ring-gray-300 rounded-md px-2 py-1"
-              onChange={(e) =>
-                handleProductType({ type: "size", value: e.target.value })
-              }
-            >
-              {product.sizes.map((size) => (
-                <option key={size} value={size}>
-                  {size.toUpperCase()}
-                </option>
-              ))}
-            </select>
-          </div>
-          {/* COLORS */}
-          <div className="flex flex-col gap-1">
-            <span className="text-gray-500">Color</span>
-            <div className="flex items-center gap-2">
-              {product.colors.map((color) => (
-                <div
-                  className={`cursor-pointer border-1 ${
-                    productTypes.color === color
-                      ? "border-gray-400"
-                      : "border-gray-200"
-                  } rounded-full p-[1.2px]`}
-                  key={color}
-                  onClick={() =>
-                    handleProductType({ type: "color", value: color })
-                  }
-                >
-                  <div
-                    className="w-[14px] h-[14px] rounded-full"
-                    style={{ backgroundColor: color }}
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
+
+      {/* DETAILS */}
+      <div className="p-4 flex flex-col gap-3">
+        
+        {/* Name & Price */}
+        <div className="flex items-start justify-between gap-2">
+          <h3 className="font-semibold text-gray-900 text-sm leading-snug line-clamp-2">
+            {product.name}
+          </h3>
+          <span className="font-bold text-gray-900 text-sm shrink-0">
+            ${product.price.toFixed(2)}
+          </span>
         </div>
-        {/* PRICE AND ADD TO CART BUTTON */}
-        <div className="flex items-center justify-between">
-          <p className="font-medium">${product.price.toFixed(2)}</p>
+
+        <p className="text-xs text-gray-400 line-clamp-1">{product.shortDescription}</p>
+
+        {/* Colors */}
+        <div className="flex items-center gap-1.5">
+          {product.colors.map((color) => (
+            <button
+              key={color}
+              onClick={() => handleProductType({ type: "color", value: color })}
+              className={`rounded-full p-[2px] transition-all duration-200 ${
+                productTypes.color === color
+                  ? "ring-2 ring-offset-1 ring-gray-400"
+                  : "ring-1 ring-gray-200"
+              }`}
+            >
+              <div
+                className="w-4 h-4 rounded-full"
+                style={{ backgroundColor: color }}
+              />
+            </button>
+          ))}
+        </div>
+
+        {/* Size & Cart */}
+        <div className="flex items-center justify-between gap-2 pt-1 border-t border-gray-100">
+          <select
+            name="size"
+            className="text-xs text-gray-600 bg-gray-50 border border-gray-200 rounded-lg px-2 py-1.5 cursor-pointer focus:outline-none focus:ring-2 focus:ring-gray-300"
+            onChange={(e) => handleProductType({ type: "size", value: e.target.value })}
+          >
+            {product.sizes.map((size) => (
+              <option key={size} value={size}>
+                {size.toUpperCase()}
+              </option>
+            ))}
+          </select>
+
           <button
             onClick={handleAddToCart}
-            className="ring-1 ring-gray-200 shadow-lg rounded-md px-2 py-1 text-sm cursor-pointer hover:text-white hover:bg-black transition-all duration-300 flex items-center gap-2"
+            className="flex items-center gap-1.5 bg-gray-900 text-white text-xs font-medium px-4 py-1.5 rounded-lg hover:bg-gray-700 transition-colors duration-200"
           >
-            <ShoppingCart className="w-4 h-4" />
+            <ShoppingCart className="w-3.5 h-3.5" />
             Add to Cart
           </button>
         </div>
+
       </div>
     </div>
   );
