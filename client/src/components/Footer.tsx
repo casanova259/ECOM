@@ -75,8 +75,8 @@ const Footer = () => {
           <p>Made with 🧶 by artisans who care.</p>
         </div>
       </div>
-    </footer>
+    </footer> 
   );
 };
 
-export default Footer;
+export default Footer;  
