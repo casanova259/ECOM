@@ -40,7 +40,7 @@ const BentoGrid = () => {
                             of Wool.
                         </h2>
                     </div>
-                    <p className="max-w-xs text-sm text-[#8a7b72] leading-relaxed">
+                    <p className="max-w-xs text-sm text-[#2c2420 ] leading-relaxed">
                         Every stitch tells a story. Handcrafted pieces made by artisans who
                         pour their heart into every creation.
                     </p>
@@ -71,18 +71,18 @@ const BentoGrid = () => {
                             </div>
                             {/* Content */}
                             <div className="absolute bottom-0 left-0 right-0 p-8">
-                                <span className="inline-block bg-white/20 backdrop-blur-sm text-white text-xs tracking-[0.3em] px-3 py-1 rounded-full mb-4 uppercase">
+                                <span className="inline-block bg-white/20 backdrop-blur-sm text-#2c2420 text-xs tracking-[0.3em] px-3 py-1 rounded-full mb-4 uppercase">
                                     Featured
                                 </span>
                                 <h3
-                                    className="text-4xl md:text-5xl font-black text-white mb-2 leading-tight"
+                                    className="text-4xl md:text-5xl font-black text-#2c2420 mb-2 leading-tight"
                                     style={{ fontFamily: "var(--font-playfair)" }}
                                 >
                                     Handmade
                                     <br />
                                     Sweaters
                                 </h3>
-                                <p className="text-white/70 text-sm mb-6">
+                                <p className="text-#2c2420 text-sm mb-6">
                                     Cozy, durable & timelessly stylish
                                 </p>
                                 <span className="inline-flex items-center gap-2 bg-white text-[#2c2420] text-xs font-semibold px-5 py-2.5 rounded-full group-hover:bg-[#f0e8e0] transition-colors duration-300">
