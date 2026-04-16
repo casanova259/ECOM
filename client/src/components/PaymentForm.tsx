@@ -4,7 +4,7 @@ import { MessageCircle, QrCode, CreditCard, Phone } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 
-const WHATSAPP_NUMBER = "919876543210"; // replace with your number
+const WHATSAPP_NUMBER = "9193752346"; // replace with your number
 const WHATSAPP_MESSAGE = encodeURIComponent("Hi! I'd like to place an order from Wooltis.");
 
 const PaymentForm = () => {
@@ -116,7 +116,8 @@ const PaymentForm = () => {
               >
                 <Phone className="w-4 h-4" /> Call Now
               </a>
-              
+
+              <a
                 href={`https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MESSAGE}`}
                 target="_blank"
                 rel="noopener noreferrer"
