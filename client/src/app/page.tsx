@@ -2,6 +2,7 @@ import ProductList from "@/components/ProductList";
 import Image from "next/image";
 import Link from "next/link";
 import BentoSection from "./bento";
+import TestimonialsSection from "@/components/Testimonials";
 
 const Homepage = async ({
   searchParams,
@@ -47,7 +48,7 @@ const Homepage = async ({
       <BentoSection />
       <section className="max-w-[1400px] mx-auto px-6">
 
-
+        <TestimonialsSection/>
         <ProductList category={category} params="homepage" />
       </section>
     </div>
