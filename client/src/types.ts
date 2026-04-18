@@ -1,17 +1,19 @@
 import { z } from "zod";
 
 export type ProductType = {
-  id: string | number;
+  id: number | string; // number now, string UUID when on Supabase
   name: string;
+  category: ProductCategory;
   shortDescription: string;
   description: string;
   price: number;
-  sizes: string[];
+  sizes: ProductSize[];
   colors: string[];
-  images: Record<string, string>;
+  images: ProductImages;
 };
 
 export type ProductsType = ProductType[];
+
 
 export type CartItemType = ProductType & {
   quantity: number;
@@ -62,3 +64,18 @@ export type CartStoreActionsType = {
   removeFromCart: (product: CartItemType) => void;
   clearCart: () => void;
 };
+
+
+// ─── Product Types ────────────────────────────────────────────────────────────
+// Extend this as more fields come from Supabase (e.g. stock, tags, discount)
+
+export type ProductCategory = "women" | "men" | "children";
+
+export type ProductSize = string; // "s" | "m" | "l" | "xl" | "xxl" | shoe sizes
+
+export type ProductImages = {
+  [color: string]: string; // color name → image path / Supabase Storage URL
+};
+
+
+

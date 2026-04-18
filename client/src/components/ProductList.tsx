@@ -1,149 +1,94 @@
-import { ProductsType } from "@/types";
-import Categories from "./Categories";
-import ProductCard from "./ProductCard";
 import Link from "next/link";
+import ProductCard from "./ProductCard";
 import Filter from "./Filter";
+import CategoryNav from "@/components/CategoryNav";
+import { getProducts, getProductsByCategory } from "@/lib/products";
+import { ProductCategory } from "@/types";
 
-// TEMPORARY
-const products: ProductsType = [
-  {
-    id: 1,
-    name: "Adidas CoreFit T-Shirt",
-    shortDescription:
-      "Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit.",
-    description:
-      "Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit. Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit. Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit.",
-    price: 39.9,
-    sizes: ["s", "m", "l", "xl", "xxl"],
-    colors: ["gray", "purple", "green"],
-    images: {
-      gray: "/products/1g.png",
-      purple: "/products/1p.png",
-      green: "/products/1gr.png",
-    },
-  },
-  {
-    id: 2,
-    name: "Puma Ultra Warm Zip",
-    shortDescription:
-      "Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit.",
-    description:
-      "Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit. Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit. Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit.",
-    price: 59.9,
-    sizes: ["s", "m", "l", "xl"],
-    colors: ["gray", "green"],
-    images: { gray: "/products/2g.png", green: "/products/2gr.png" },
-  },
-  {
-    id: 3,
-    name: "Nike Air Essentials Pullover",
-    shortDescription:
-      "Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit.",
-    description:
-      "Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit. Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit. Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit.",
-    price: 69.9,
-    sizes: ["s", "m", "l"],
-    colors: ["green", "blue", "black"],
-    images: {
-      green: "/products/3gr.png",
-      blue: "/products/3b.png",
-      black: "/products/3bl.png",
-    },
-  },
-  {
-    id: 4,
-    name: "Nike Dri Flex T-Shirt",
-    shortDescription:
-      "Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit.",
-    description:
-      "Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit. Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit. Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit.",
-    price: 29.9,
-    sizes: ["s", "m", "l"],
-    colors: ["white", "pink"],
-    images: { white: "/products/4w.png", pink: "/products/4p.png" },
-  },
-  {
-    id: 5,
-    name: "Under Armour StormFleece",
-    shortDescription:
-      "Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit.",
-    description:
-      "Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit. Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit. Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit.",
-    price: 49.9,
-    sizes: ["s", "m", "l"],
-    colors: ["red", "orange", "black"],
-    images: {
-      red: "/products/5r.png",
-      orange: "/products/5o.png",
-      black: "/products/5bl.png",
-    },
-  },
-  {
-    id: 6,
-    name: "Nike Air Max 270",
-    shortDescription:
-      "Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit.",
-    description:
-      "Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit. Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit. Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit.",
-    price: 59.9,
-    sizes: ["40", "42", "43", "44"],
-    colors: ["gray", "white"],
-    images: { gray: "/products/6g.png", white: "/products/6w.png" },
-  },
-  {
-    id: 7,
-    name: "Nike Ultraboost Pulse ",
-    shortDescription:
-      "Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit.",
-    description:
-      "Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit. Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit. Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit.",
-    price: 69.9,
-    sizes: ["40", "42", "43"],
-    colors: ["gray", "pink"],
-    images: { gray: "/products/7g.png", pink: "/products/7p.png" },
-  },
-  {
-    id: 8,
-    name: "Levi’s Classic Denim",
-    shortDescription:
-      "Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit.",
-    description:
-      "Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit. Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit. Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit.",
-    price: 59.9,
-    sizes: ["s", "m", "l"],
-    colors: ["blue", "green"],
-    images: { blue: "/products/8b.png", green: "/products/8gr.png" },
-  },
-];
+// ─── Constants ────────────────────────────────────────────────────────────────
+const AVAILABLE_CATEGORIES: ProductCategory[] = ["women"];
+// When men / children products are added, push them into this array ↑
 
-const ProductList = ({ category, params }: { category: string, params: "homepage" | "products" }) => {
+// ─── Component ────────────────────────────────────────────────────────────────
+interface ProductListProps {
+  /** URL ?category= param. Defaults to "women" when on homepage. */
+  category?: string;
+  params: "homepage" | "products";
+}
+
+const ProductList = async ({ category, params }: ProductListProps) => {
+  // Resolve the active category — default to "women" (only live category)
+  const activeCategory: ProductCategory =
+    category && AVAILABLE_CATEGORIES.includes(category as ProductCategory)
+      ? (category as ProductCategory)
+      : "women";
+
+  // Data fetch — one-liner swap for Supabase later
+  const products =
+    params === "homepage"
+      ? (await getProducts()).slice(0, 3)           // homepage: show 3 items
+      : await getProductsByCategory(activeCategory); // products page: filtered
+
+  const categoryLabel =
+    activeCategory.charAt(0).toUpperCase() + activeCategory.slice(1);
+
   return (
     <div className="w-full">
-      {/* <Categories /> */}
+      {/* Category tab nav — only on full products page */}
+      {params === "products" && <CategoryNav />}
+
+      {/* Filters row */}
       {params === "products" && <Filter />}
 
       {/* Section header */}
       <div className="flex items-center justify-between mb-8">
         <h2 className="text-2xl font-bold text-gray-900">
-          {category ? category.charAt(0).toUpperCase() + category.slice(1) : "All Products"}
+          {params === "homepage" ? "Featured Products" : `${categoryLabel}'s Collection`}
         </h2>
         <span className="text-sm text-gray-400">{products.length} items</span>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8">
-        {products.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
+      {/* Grid */}
+      {products.length > 0 ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8">
+          {products.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
+      ) : (
+        <EmptyState category={categoryLabel} />
+      )}
 
-      <Link
-        href={category ? `/products/?category=${category}` : "/products"}
-        className="flex justify-end mt-8 underline text-sm text-gray-400 hover:text-gray-900 transition-colors"
-      >
-        View all products →
-      </Link>
+      {/* View all link — homepage only */}
+      {params === "homepage" && (
+        <Link
+          href="/products?category=women"
+          className="flex justify-end mt-8 underline text-sm text-gray-400 hover:text-gray-900 transition-colors"
+        >
+          View all products →
+        </Link>
+      )}
     </div>
   );
 };
+
+// ─── Empty state (future-proof for when men/children tabs become active) ──────
+const EmptyState = ({ category }: { category: string }) => (
+  <div className="flex flex-col items-center justify-center py-24 text-center">
+    <span className="text-5xl mb-4">🛍️</span>
+    <h3 className="text-lg font-semibold text-gray-700 mb-2">
+      {category}&apos;s collection coming soon
+    </h3>
+    <p className="text-sm text-gray-400 max-w-xs">
+      We&apos;re working on adding {category.toLowerCase()}&apos;s products. Check back soon!
+    </p>
+    <Link
+      href="/products?category=women"
+      className="mt-6 text-sm underline text-gray-500 hover:text-gray-900 transition-colors"
+    >
+      Browse Women&apos;s Collection →
+    </Link>
+  </div>
+);
 
 export default ProductList;
