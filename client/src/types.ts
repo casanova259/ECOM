@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export type ProductType = {
-  id: number | string; // number now, string UUID when on Supabase
+  id: number | string;
   name: string;
   category: ProductCategory;
   shortDescription: string;
@@ -14,7 +14,6 @@ export type ProductType = {
 
 export type ProductsType = ProductType[];
 
-
 export type CartItemType = ProductType & {
   quantity: number;
   selectedSize: string;
@@ -25,7 +24,7 @@ export type CartItemsType = CartItemType[];
 
 export const shippingFormSchema = z.object({
   name: z.string().min(1, "Name is required!"),
-  email: z.email().min(1, "Email is required!"),
+  email: z.string().email().min(1, "Email is required!"),
   phone: z
     .string()
     .min(7, "Phone number must be between 7 and 10 digits!")
@@ -62,20 +61,17 @@ export type CartStoreStateType = {
 export type CartStoreActionsType = {
   addToCart: (product: CartItemType) => void;
   removeFromCart: (product: CartItemType) => void;
+  incrementQuantity: (product: CartItemType) => void; // ← added
+  decrementQuantity: (product: CartItemType) => void; // ← added
   clearCart: () => void;
 };
 
-
 // ─── Product Types ────────────────────────────────────────────────────────────
-// Extend this as more fields come from Supabase (e.g. stock, tags, discount)
 
 export type ProductCategory = "women" | "men" | "children";
 
-export type ProductSize = string; // "s" | "m" | "l" | "xl" | "xxl" | shoe sizes
+export type ProductSize = string;
 
 export type ProductImages = {
-  [color: string]: string; // color name → image path / Supabase Storage URL
+  [color: string]: string;
 };
-
-
-

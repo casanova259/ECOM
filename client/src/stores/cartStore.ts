@@ -45,6 +45,28 @@ const useCartStore = create<CartStoreStateType & CartStoreActionsType>()(
               )
           ),
         })),
+      incrementQuantity: (product) =>
+        set((state) => ({
+          cart: state.cart.map((p) =>
+            p.id === product.id &&
+            p.selectedSize === product.selectedSize &&
+            p.selectedColor === product.selectedColor
+              ? { ...p, quantity: p.quantity + 1 }
+              : p
+          ),
+        })),
+      decrementQuantity: (product) =>
+        set((state) => ({
+          cart: state.cart
+            .map((p) =>
+              p.id === product.id &&
+              p.selectedSize === product.selectedSize &&
+              p.selectedColor === product.selectedColor
+                ? { ...p, quantity: p.quantity - 1 }
+                : p
+            )
+            .filter((p) => p.quantity > 0), // auto-remove if hits 0
+        })),
       clearCart: () => set({ cart: [] }),
     }),
     {

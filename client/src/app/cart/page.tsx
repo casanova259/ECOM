@@ -4,7 +4,7 @@ import PaymentForm from "@/components/PaymentForm";
 import ShippingForm from "@/components/ShippingForm";
 import useCartStore from "@/stores/cartStore";
 import { ShippingFormInputs } from "@/types";
-import { ArrowRight, Trash2, ShoppingBag } from "lucide-react";
+import { ArrowRight, Trash2, ShoppingBag, Plus, Minus } from "lucide-react";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
@@ -21,7 +21,7 @@ const CartPage = () => {
   const router = useRouter();
   const [shippingForm, setShippingForm] = useState<ShippingFormInputs>();
   const activeStep = parseInt(searchParams.get("step") || "1");
-  const { cart, removeFromCart } = useCartStore();
+  const { cart, removeFromCart, incrementQuantity, decrementQuantity } = useCartStore();
 
   const subtotal = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
   const discount = subtotal * 0.1;
@@ -96,6 +96,7 @@ const CartPage = () => {
                       className="flex items-center justify-between py-6 first:pt-0 last:pb-0"
                     >
                       <div className="flex gap-5">
+                        {/* Image */}
                         <div className="relative w-20 h-24 bg-[#f7f2ed] rounded-2xl overflow-hidden shrink-0">
                           <Image
                             src={item.images[item.selectedColor]}
@@ -104,7 +105,9 @@ const CartPage = () => {
                             className="object-contain p-2"
                           />
                         </div>
+
                         <div className="flex flex-col justify-between py-1">
+                          {/* Name + meta */}
                           <div>
                             <p className="text-sm font-semibold text-[#2c2420] mb-1">{item.name}</p>
                             <div className="flex items-center gap-3 text-xs text-[#b5a090]">
@@ -117,13 +120,36 @@ const CartPage = () => {
                                   style={{ backgroundColor: item.selectedColor }}
                                 />
                               </span>
-                              <span>·</span>
-                              <span>Qty: {item.quantity}</span>
                             </div>
                           </div>
-                          <p className="text-sm font-bold text-[#2c2420]">${item.price.toFixed(2)}</p>
+
+                          {/* Quantity controls */}
+                          <div className="flex items-center gap-2 mt-2">
+                            <button
+                              onClick={() => decrementQuantity(item)}
+                              className="w-7 h-7 rounded-full bg-[#f0e8df] hover:bg-[#e8ddd4] transition-colors text-[#2c2420] flex items-center justify-center"
+                            >
+                              <Minus className="w-3 h-3" />
+                            </button>
+                            <span className="text-sm font-semibold text-[#2c2420] w-5 text-center">
+                              {item.quantity}
+                            </span>
+                            <button
+                              onClick={() => incrementQuantity(item)}
+                              className="w-7 h-7 rounded-full bg-[#f0e8df] hover:bg-[#e8ddd4] transition-colors text-[#2c2420] flex items-center justify-center"
+                            >
+                              <Plus className="w-3 h-3" />
+                            </button>
+                          </div>
+
+                          {/* Price × quantity */}
+                          <p className="text-sm font-bold text-[#2c2420]">
+                            ${(item.price * item.quantity).toFixed(2)}
+                          </p>
                         </div>
                       </div>
+
+                      {/* Remove button */}
                       <button
                         onClick={() => removeFromCart(item)}
                         className="w-8 h-8 rounded-full bg-[#fdf0ee] hover:bg-[#fde0dc] transition-colors text-[#e07060] flex items-center justify-center shrink-0"
@@ -167,12 +193,22 @@ const CartPage = () => {
               {cart.length > 0 && (
                 <div className="flex flex-col gap-3 mb-6 pb-6 border-b border-[#f0e8df]">
                   {cart.map((item) => (
-                    <div key={item.id} className="flex items-center gap-3">
+                    <div key={item.id + item.selectedSize + item.selectedColor} className="flex items-center gap-3">
                       <div className="relative w-10 h-10 bg-[#f7f2ed] rounded-xl overflow-hidden shrink-0">
-                        <Image src={item.images[item.selectedColor]} alt={item.name} fill className="object-contain p-1" />
+                        <Image
+                          src={item.images[item.selectedColor]}
+                          alt={item.name}
+                          fill
+                          className="object-contain p-1"
+                        />
                       </div>
-                      <p className="text-xs text-[#8a7b72] flex-1 line-clamp-1">{item.name}</p>
-                      <p className="text-xs font-semibold text-[#2c2420]">${item.price.toFixed(2)}</p>
+                      <p className="text-xs text-[#8a7b72] flex-1 line-clamp-1">
+                        {item.name}{" "}
+                        <span className="text-[#b5a090]">× {item.quantity}</span>
+                      </p>
+                      <p className="text-xs font-semibold text-[#2c2420]">
+                        ${(item.price * item.quantity).toFixed(2)}
+                      </p>
                     </div>
                   ))}
                 </div>
