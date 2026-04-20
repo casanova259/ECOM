@@ -48,25 +48,22 @@ const CartPage = () => {
           {steps.map((step, i) => (
             <div key={step.id} className="flex items-center">
               <div className="flex flex-col items-center gap-1.5">
-                <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-300 ${
-                  step.id === activeStep
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-300 ${step.id === activeStep
                     ? "bg-[#2c2420] text-white"
                     : step.id < activeStep
-                    ? "bg-[#c9917a] text-white"
-                    : "bg-[#e8ddd4] text-[#b5a090]"
-                }`}>
+                      ? "bg-[#c9917a] text-white"
+                      : "bg-[#e8ddd4] text-[#b5a090]"
+                  }`}>
                   {step.id < activeStep ? "✓" : step.id}
                 </div>
-                <span className={`text-xs whitespace-nowrap ${
-                  step.id === activeStep ? "text-[#2c2420] font-semibold" : "text-[#b5a090]"
-                }`}>
+                <span className={`text-xs whitespace-nowrap ${step.id === activeStep ? "text-[#2c2420] font-semibold" : "text-[#b5a090]"
+                  }`}>
                   {step.title}
                 </span>
               </div>
               {i < steps.length - 1 && (
-                <div className={`w-16 h-px mb-5 mx-2 transition-all duration-300 ${
-                  step.id < activeStep ? "bg-[#c9917a]" : "bg-[#e8ddd4]"
-                }`} />
+                <div className={`w-16 h-px mb-5 mx-2 transition-all duration-300 ${step.id < activeStep ? "bg-[#c9917a]" : "bg-[#e8ddd4]"
+                  }`} />
               )}
             </div>
           ))}
@@ -163,7 +160,8 @@ const CartPage = () => {
             ) : activeStep === 2 ? (
               <ShippingForm setShippingForm={setShippingForm} />
             ) : activeStep === 3 && shippingForm ? (
-              <PaymentForm />
+
+              <PaymentForm shippingData={shippingForm} total={total} />
             ) : (
               <div className="flex flex-col items-center justify-center py-12 gap-3">
                 <p className="text-[#b5a090] text-sm text-center">
