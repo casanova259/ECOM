@@ -1,25 +1,14 @@
 import ProductInteraction from "@/components/ProductInteraction";
 import ProductGallery from "@/components/ProductGallery";
-import { ProductType } from "@/types";
+import { getProductById } from "@/lib/products";
 import Image from "next/image";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 
-const product: ProductType = {
-  id: 1,
-  name: "Adidas CoreFit T-Shirt",
-  shortDescription: "Lorem ipsum dolor sit amet consect adipisicing elit.",
-  description: "Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit. Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit. Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit.",
-  price: 59.9,
-  sizes: ["xs", "s", "m", "l", "xl"],
-  colors: ["gray", "purple", "green"],
-  images: {
-    gray: "/products/1g.png",
-    purple: "/products/1p.png",
-    green: "/products/1gr.png",
-  },
-};
-
-export const generateMetadata = async ({ params }: { params: { id: string } }) => {
+export const generateMetadata = async ({ params }: { params: Promise<{ id: string }> }) => {
+  const { id } = await params;
+  const product = await getProductById(id);
+  if (!product) return { title: "Product Not Found" };
   return { title: product.name, description: product.description };
 };
 
@@ -30,7 +19,12 @@ const ProductPage = async ({
   params: Promise<{ id: string }>;
   searchParams: Promise<{ color: string; size: string }>;
 }) => {
+  const { id } = await params;
   const { size, color } = await searchParams;
+
+  const product = await getProductById(id);
+  if (!product) return notFound();
+
   const selectedSize = size || product.sizes[0];
   const selectedColor = color || product.colors[0];
 
@@ -46,10 +40,8 @@ const ProductPage = async ({
         </div>
 
         <div className="flex flex-col lg:flex-row gap-12 xl:gap-20">
-          {/* GALLERY — client component */}
           <ProductGallery images={product.images} selectedColor={selectedColor} />
 
-          {/* DETAILS */}
           <div className="w-full lg:w-1/2 flex flex-col gap-6 py-4">
             <div>
               <p className="text-xs tracking-[0.4em] text-[#b5a090] uppercase mb-3">Wooltis Collection</p>
