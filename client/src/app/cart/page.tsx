@@ -92,7 +92,8 @@ const CartPage = () => {
                       key={item.id + item.selectedSize + item.selectedColor}
                       className="flex items-center justify-between py-6 first:pt-0 last:pb-0"
                     >
-                      <div className="flex gap-5">
+                      {/* Left: image + info */}
+                      <div className="flex gap-5 flex-1 min-w-0">
                         {/* Image */}
                         <div className="relative w-20 h-24 bg-[#f7f2ed] rounded-2xl overflow-hidden shrink-0">
                           <Image
@@ -103,8 +104,8 @@ const CartPage = () => {
                           />
                         </div>
 
-                        <div className="flex flex-col justify-between py-1">
-                          {/* Name + meta */}
+                        {/* Name, meta, quantity */}
+                        <div className="flex flex-col justify-between py-1 min-w-0">
                           <div>
                             <p className="text-sm font-semibold text-[#2c2420] mb-1">{item.name}</p>
                             <div className="flex items-center gap-3 text-xs text-[#b5a090]">
@@ -121,7 +122,7 @@ const CartPage = () => {
                           </div>
 
                           {/* Quantity controls */}
-                          <div className="flex items-center gap-2 mt-2">
+                          <div className="flex items-center gap-2 mt-3">
                             <button
                               onClick={() => decrementQuantity(item)}
                               className="w-7 h-7 rounded-full bg-[#f0e8df] hover:bg-[#e8ddd4] transition-colors text-[#2c2420] flex items-center justify-center"
@@ -138,21 +139,21 @@ const CartPage = () => {
                               <Plus className="w-3 h-3" />
                             </button>
                           </div>
-
-                          {/* Price × quantity */}
-                          <p className="text-sm font-bold text-[#2c2420]">
-                            ${(item.price * item.quantity).toFixed(2)}
-                          </p>
                         </div>
                       </div>
 
-                      {/* Remove button */}
-                      <button
-                        onClick={() => removeFromCart(item)}
-                        className="w-8 h-8 rounded-full bg-[#fdf0ee] hover:bg-[#fde0dc] transition-colors text-[#e07060] flex items-center justify-center shrink-0"
-                      >
-                        <Trash2 className="w-3.5 h-3.5" />
-                      </button>
+                      {/* Right: trash top, price bottom */}
+                      <div className="flex flex-col items-end justify-between h-24 shrink-0 pl-4">
+                        <button
+                          onClick={() => removeFromCart(item)}
+                          className="w-8 h-8 rounded-full bg-[#fdf0ee] hover:bg-[#fde0dc] transition-colors text-[#e07060] flex items-center justify-center"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                        <p className="text-sm font-bold text-[#2c2420]">
+                          ${(item.price * item.quantity).toFixed(2)}
+                        </p>
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -160,7 +161,6 @@ const CartPage = () => {
             ) : activeStep === 2 ? (
               <ShippingForm setShippingForm={setShippingForm} />
             ) : activeStep === 3 && shippingForm ? (
-
               <PaymentForm shippingData={shippingForm} total={total} />
             ) : (
               <div className="flex flex-col items-center justify-center py-12 gap-3">
