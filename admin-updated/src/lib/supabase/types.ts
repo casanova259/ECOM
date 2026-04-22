@@ -14,8 +14,7 @@ export type ProductSize =
   | "40" | "41" | "42" | "43" | "44" | "45";
 
 export type ProductClothingCategory =
-  | "T-shirts" | "Shoes" | "Accessories" | "Bags"
-  | "Dresses" | "Jackets" | "Gloves";
+  "Sweater" | "Scarf" | "Keychain" | "Doll" | "Cardigan";
 
 // ─── Table: products ──────────────────────────────────────────────────────────
 export type Product = {

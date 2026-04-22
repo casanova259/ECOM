@@ -38,7 +38,7 @@ import { Loader2 } from "lucide-react";
 const audiences: ProductCategory[] = ["women", "men", "children"];
 
 const clothingCategories: ProductClothingCategory[] = [
-  "T-shirts", "Shoes", "Accessories", "Bags", "Dresses", "Jackets", "Gloves",
+  "Sweater", "Scarf", "Keychain", "Doll", "Cardigan",
 ];
 
 const colors: ProductColor[] = [
@@ -48,8 +48,6 @@ const colors: ProductColor[] = [
 
 const sizes: ProductSize[] = [
   "xs", "s", "m", "l", "xl", "xxl",
-  "34", "35", "36", "37", "38", "39",
-  "40", "41", "42", "43", "44", "45",
 ];
 
 const formSchema = z.object({
@@ -59,7 +57,7 @@ const formSchema = z.object({
   price: z.coerce.number().min(0.01, { message: "Price must be greater than 0!" }),
   category: z.enum(["women", "men", "children"] as const),
   clothing_category: z.enum([
-    "T-shirts", "Shoes", "Accessories", "Bags", "Dresses", "Jackets", "Gloves",
+    "Sweater", "Scarf", "Keychain", "Doll", "Cardigan",
   ] as const),
   sizes: z.array(z.string()).min(1, { message: "Select at least one size!" }),
   colors: z.array(z.string()).min(1, { message: "Select at least one color!" }),
@@ -126,7 +124,7 @@ const AddProduct = () => {
         <SheetHeader className="mb-6">
           <SheetTitle>Add Product</SheetTitle>
           <SheetDescription>
-            Fill in the details below to add a new product to your store.
+            Fill in the details below to add a new handmade woolen product to your store.
           </SheetDescription>
         </SheetHeader>
 
@@ -137,7 +135,7 @@ const AddProduct = () => {
             <FormField control={form.control} name="name" render={({ field }) => (
               <FormItem>
                 <FormLabel>Product Name</FormLabel>
-                <FormControl><Input placeholder="e.g. Nike Dri-Fit T-Shirt" {...field} /></FormControl>
+                <FormControl><Input placeholder="e.g. Chunky Knit Cardigan" {...field} /></FormControl>
                 <FormMessage />
               </FormItem>
             )} />
@@ -156,7 +154,7 @@ const AddProduct = () => {
             <FormField control={form.control} name="description" render={({ field }) => (
               <FormItem>
                 <FormLabel>Full Description</FormLabel>
-                <FormControl><Textarea placeholder="Detailed product description..." rows={4} {...field} /></FormControl>
+                <FormControl><Textarea placeholder="Describe the wool type, knitting style, care instructions..." rows={4} {...field} /></FormControl>
                 <FormMessage />
               </FormItem>
             )} />
@@ -187,19 +185,19 @@ const AddProduct = () => {
                   </SelectContent>
                 </Select>
                 <FormDescription>
-                  Men &amp; Children will be visible on the store once their collections launch.
+                  Men &amp; Children collections will be visible once launched.
                 </FormDescription>
                 <FormMessage />
               </FormItem>
             )} />
 
-            {/* Clothing Category */}
+            {/* Product Type */}
             <FormField control={form.control} name="clothing_category" render={({ field }) => (
               <FormItem>
-                <FormLabel>Category / Type</FormLabel>
+                <FormLabel>Product Type</FormLabel>
                 <Select onValueChange={field.onChange} defaultValue={field.value}>
                   <FormControl>
-                    <SelectTrigger><SelectValue placeholder="Select category" /></SelectTrigger>
+                    <SelectTrigger><SelectValue placeholder="Select product type" /></SelectTrigger>
                   </FormControl>
                   <SelectContent>
                     {clothingCategories.map((c) => (
@@ -215,6 +213,9 @@ const AddProduct = () => {
             <FormField control={form.control} name="sizes" render={({ field }) => (
               <FormItem>
                 <FormLabel>Available Sizes</FormLabel>
+                <FormDescription className="mt-0 mb-2">
+                  Leave unchecked for one-size products like Keychains or Dolls.
+                </FormDescription>
                 <FormControl>
                   <div className="grid grid-cols-4 gap-2 mt-1">
                     {sizes.map((size) => (
@@ -228,7 +229,7 @@ const AddProduct = () => {
                             );
                           }}
                         />
-                        <label className="text-xs cursor-pointer">{size}</label>
+                        <label className="text-xs cursor-pointer uppercase">{size}</label>
                       </div>
                     ))}
                   </div>
