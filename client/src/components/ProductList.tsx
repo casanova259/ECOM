@@ -7,7 +7,6 @@ import { ProductCategory } from "@/types";
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 const AVAILABLE_CATEGORIES: ProductCategory[] = ["women", "men", "children"];
-const COMING_SOON_CATEGORIES: ProductCategory[] = ["men", "children"];
 
 // ─── Component ────────────────────────────────────────────────────────────────
 interface ProductListProps {
@@ -24,16 +23,6 @@ const ProductList = async ({ category, params }: ProductListProps) => {
   const categoryLabel =
     activeCategory.charAt(0).toUpperCase() + activeCategory.slice(1);
 
-  // ─── Coming Soon short-circuit ────────────────────────────────────────────
-  if (params === "products" && COMING_SOON_CATEGORIES.includes(activeCategory)) {
-    return (
-      <div className="w-full">
-        <CategoryNav />
-        <ComingSoon category={categoryLabel} />
-      </div>
-    );
-  }
-
   // ─── Fetch products ───────────────────────────────────────────────────────
   let products;
   try {
@@ -44,6 +33,16 @@ const ProductList = async ({ category, params }: ProductListProps) => {
   } catch (error) {
     console.error("Failed to fetch products:", error);
     products = [];
+  }
+
+  // ─── Coming Soon — only if no products exist for this category ────────────
+  if (params === "products" && products.length === 0) {
+    return (
+      <div className="w-full">
+        <CategoryNav />
+        <ComingSoon category={categoryLabel} />
+      </div>
+    );
   }
 
   return (
@@ -65,15 +64,11 @@ const ProductList = async ({ category, params }: ProductListProps) => {
       </div>
 
       {/* Grid */}
-      {products.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8">
-          {products.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
-      ) : (
-        <EmptyState category={categoryLabel} />
-      )}
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8">
+        {products.map((product) => (
+          <ProductCard key={product.id} product={product} />
+        ))}
+      </div>
 
       {/* View all — homepage only */}
       {params === "homepage" && (
@@ -108,25 +103,6 @@ const ComingSoon = ({ category }: { category: string }) => (
     <Link
       href="/products?category=women"
       className="mt-8 text-xs tracking-[0.3em] uppercase underline text-[#b5a090] hover:text-[#2c2420] transition-colors"
-    >
-      Browse Women&apos;s Woolens →
-    </Link>
-  </div>
-);
-
-// ─── Empty State ──────────────────────────────────────────────────────────────
-const EmptyState = ({ category }: { category: string }) => (
-  <div className="flex flex-col items-center justify-center py-24 text-center">
-    <span className="text-5xl mb-4">🧶</span>
-    <h3 className="text-lg font-semibold text-[#2c2420] mb-2">
-      {category}&apos;s collection coming soon
-    </h3>
-    <p className="text-sm text-[#b5a090] max-w-xs">
-      We&apos;re handcrafting {category.toLowerCase()}&apos;s woolen products. Check back soon!
-    </p>
-    <Link
-      href="/products?category=women"
-      className="mt-6 text-sm underline text-[#b5a090] hover:text-[#2c2420] transition-colors"
     >
       Browse Women&apos;s Woolens →
     </Link>
