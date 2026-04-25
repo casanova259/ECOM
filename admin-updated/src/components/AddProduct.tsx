@@ -162,7 +162,7 @@ const AddProduct = () => {
             {/* Price */}
             <FormField control={form.control} name="price" render={({ field }) => (
               <FormItem>
-                <FormLabel>Price (USD)</FormLabel>
+                <FormLabel>Price (Rs)</FormLabel>
                 <FormControl>
                   <Input type="number" step="0.01" min="0" placeholder="29.99" {...field} />
                 </FormControl>

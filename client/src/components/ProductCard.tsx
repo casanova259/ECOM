@@ -69,7 +69,7 @@ const ProductCard = ({ product }: { product: ProductType }) => {
             {product.name}
           </h3>
           <span className="font-bold text-gray-900 text-sm shrink-0">
-            ${product.price.toFixed(2)}
+            ₹{product.price.toFixed(2)}
           </span>
         </div>
 
