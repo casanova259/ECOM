@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Bell, Home, UserCircle } from "lucide-react";
+import { Home, UserCircle, LogOut } from "lucide-react";
 import ShoppingCartIcon from "./ShoppingCartIcon";
 import { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
@@ -24,18 +24,21 @@ const Navbar = () => {
   }, []);
 
   useEffect(() => {
-    // Get initial session
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null);
     });
 
-    // Listen for auth changes (login / logout)
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null);
     });
 
     return () => subscription.unsubscribe();
   }, []);
+
+  const handleSignOut = async () => {
+    await supabase.auth.signOut();
+    setUser(null);
+  };
 
   return (
     <nav
@@ -64,19 +67,25 @@ const Navbar = () => {
           <Link href="/" className="text-gray-700 hover:text-gray-900 transition-colors">
             <Home className="w-5 h-5" />
           </Link>
-          <button className="text-gray-700 hover:text-gray-900 transition-colors">
-            <Bell className="w-5 h-5" />
-          </button>
           <ShoppingCartIcon />
 
           {user ? (
-            <Link
-              href="/profile"
-              className="text-gray-700 hover:text-gray-900 transition-colors"
-              title={user.email}
-            >
-              <UserCircle className="w-6 h-6" />
-            </Link>
+            <>
+              <Link
+                href="/profile"
+                className="text-gray-700 hover:text-gray-900 transition-colors"
+                title={user.email}
+              >
+                <UserCircle className="w-6 h-6" />
+              </Link>
+              <button
+                onClick={handleSignOut}
+                className="text-gray-700 hover:text-red-500 transition-colors"
+                title="Sign out"
+              >
+                <LogOut className="w-5 h-5" />
+              </button>
+            </>
           ) : (
             <Link
               href="/login"
