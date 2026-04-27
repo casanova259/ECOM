@@ -92,9 +92,7 @@ const CartPage = () => {
                       key={item.id + item.selectedSize + item.selectedColor}
                       className="flex items-center justify-between py-6 first:pt-0 last:pb-0"
                     >
-                      {/* Left: image + info */}
                       <div className="flex gap-5 flex-1 min-w-0">
-                        {/* Image */}
                         <div className="relative w-20 h-24 bg-[#f7f2ed] rounded-2xl overflow-hidden shrink-0">
                           <Image
                             src={item.images[item.selectedColor]}
@@ -104,7 +102,6 @@ const CartPage = () => {
                           />
                         </div>
 
-                        {/* Name, meta, quantity */}
                         <div className="flex flex-col justify-between py-1 min-w-0">
                           <div>
                             <p className="text-sm font-semibold text-[#2c2420] mb-1">{item.name}</p>
@@ -121,7 +118,6 @@ const CartPage = () => {
                             </div>
                           </div>
 
-                          {/* Quantity controls */}
                           <div className="flex items-center gap-2 mt-3">
                             <button
                               onClick={() => decrementQuantity(item)}
@@ -142,7 +138,6 @@ const CartPage = () => {
                         </div>
                       </div>
 
-                      {/* Right: trash top, price bottom */}
                       <div className="flex flex-col items-end justify-between h-24 shrink-0 pl-4">
                         <button
                           onClick={() => removeFromCart(item)}
@@ -151,7 +146,7 @@ const CartPage = () => {
                           <Trash2 className="w-3.5 h-3.5" />
                         </button>
                         <p className="text-sm font-bold text-[#2c2420]">
-                          ${(item.price * item.quantity).toFixed(2)}
+                          ₹{(item.price * item.quantity).toFixed(2)}
                         </p>
                       </div>
                     </div>
@@ -187,7 +182,6 @@ const CartPage = () => {
                 Order Summary
               </h2>
 
-              {/* Mini cart preview */}
               {cart.length > 0 && (
                 <div className="flex flex-col gap-3 mb-6 pb-6 border-b border-[#f0e8df]">
                   {cart.map((item) => (
@@ -205,7 +199,7 @@ const CartPage = () => {
                         <span className="text-[#b5a090]">× {item.quantity}</span>
                       </p>
                       <p className="text-xs font-semibold text-[#2c2420]">
-                        ${(item.price * item.quantity).toFixed(2)}
+                        ₹{(item.price * item.quantity).toFixed(2)}
                       </p>
                     </div>
                   ))}
@@ -215,20 +209,20 @@ const CartPage = () => {
               <div className="flex flex-col gap-3 mb-6">
                 <div className="flex justify-between text-sm">
                   <p className="text-[#8a7b72]">Subtotal</p>
-                  <p className="font-medium text-[#2c2420]">${subtotal.toFixed(2)}</p>
+                  <p className="font-medium text-[#2c2420]">₹{subtotal.toFixed(2)}</p>
                 </div>
                 <div className="flex justify-between text-sm">
                   <p className="text-[#8a7b72]">Discount (10%)</p>
-                  <p className="font-medium text-[#c9917a]">−${discount.toFixed(2)}</p>
+                  <p className="font-medium text-[#c9917a]">−₹{discount.toFixed(2)}</p>
                 </div>
                 <div className="flex justify-between text-sm">
                   <p className="text-[#8a7b72]">Shipping</p>
-                  <p className="font-medium text-[#2c2420]">${shipping.toFixed(2)}</p>
+                  <p className="font-medium text-[#2c2420]">₹{shipping.toFixed(2)}</p>
                 </div>
                 <div className="w-full h-px bg-[#f0e8df]" />
                 <div className="flex justify-between">
                   <p className="font-bold text-[#2c2420]">Total</p>
-                  <p className="font-black text-[#2c2420] text-lg">${total.toFixed(2)}</p>
+                  <p className="font-black text-[#2c2420] text-lg">₹{total.toFixed(2)}</p>
                 </div>
               </div>
 
@@ -242,7 +236,6 @@ const CartPage = () => {
                 </button>
               )}
 
-              {/* Trust badges */}
               <div className="flex items-center justify-center gap-4 mt-5">
                 {["🔒 Secure", "🧶 Handmade", "🌿 Eco"].map((badge) => (
                   <span key={badge} className="text-xs text-[#b5a090]">{badge}</span>
