@@ -55,8 +55,8 @@ const ProductPage = async ({
             </div>
 
             <div className="flex items-center gap-3">
-              <span className="text-3xl font-black text-[#2c2420]">${product.price.toFixed(2)}</span>
-              <span className="text-sm text-[#b5a090] line-through">${(product.price * 1.2).toFixed(2)}</span>
+              <span className="text-3xl font-black text-[#2c2420]">₹{product.price.toFixed(2)}</span>
+              <span className="text-sm text-[#b5a090] line-through">₹{(product.price * 1.2).toFixed(2)}</span>
               <span className="bg-[#c9917a]/20 text-[#c9917a] text-xs font-semibold px-2 py-1 rounded-full">20% OFF</span>
             </div>
 
