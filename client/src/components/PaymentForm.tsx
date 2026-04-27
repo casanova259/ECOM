@@ -6,7 +6,7 @@ import { createOrder } from "@/lib/orders";
 import useCartStore from "@/stores/cartStore";
 import { ShippingFormInputs } from "@/types";
 
-const WHATSAPP_NUMBER = "9193752346";
+const WHATSAPP_NUMBER = " 98729 92930";
 
 interface PaymentFormProps {
   shippingData: ShippingFormInputs;

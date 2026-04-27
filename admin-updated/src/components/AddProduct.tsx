@@ -31,7 +31,8 @@ import { Textarea } from "./ui/textarea";
 import { Checkbox } from "./ui/checkbox";
 import { ScrollArea } from "./ui/scroll-area";
 import { useState } from "react";
-import { createProduct, uploadProductImage } from "@/lib/actions/products";
+import { createProduct } from "@/lib/actions/products";
+import { uploadProductImage } from "@/lib/upload";
 import { ProductCategory, ProductClothingCategory, ProductColor, ProductSize } from "@/lib/supabase/types";
 import { Loader2 } from "lucide-react";
 
@@ -96,7 +97,7 @@ const AddProduct = () => {
       // 2. Insert product into Supabase
       const result = await createProduct({
         name: values.name,
-        short_description: values.short_description,
+        short_description: values.short_description,  // ← must match exactly
         description: values.description,
         price: values.price,
         category: values.category,

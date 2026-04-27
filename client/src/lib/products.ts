@@ -1,10 +1,13 @@
 "use server";
 
-import { supabase } from "@/lib/supabase/client";
+import { createClient } from "@supabase/supabase-js";
 import { ProductType, ProductsType, ProductCategory } from "@/types";
 
-// ─── Map Supabase row → client ProductType ────────────────────────────────────
-// Supabase uses snake_case, our client types use camelCase
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+);
+
 function mapProduct(p: Record<string, any>): ProductType {
   return {
     id: p.id,
@@ -19,7 +22,6 @@ function mapProduct(p: Record<string, any>): ProductType {
   };
 }
 
-// ─── Get all products ─────────────────────────────────────────────────────────
 export async function getProducts(): Promise<ProductsType> {
   const { data, error } = await supabase
     .from("products")
@@ -30,7 +32,6 @@ export async function getProducts(): Promise<ProductsType> {
   return data.map(mapProduct);
 }
 
-// ─── Get products by category ─────────────────────────────────────────────────
 export async function getProductsByCategory(
   category: ProductCategory | string
 ): Promise<ProductsType> {
@@ -44,7 +45,6 @@ export async function getProductsByCategory(
   return data.map(mapProduct);
 }
 
-// ─── Get single product by ID ─────────────────────────────────────────────────
 export async function getProductById(id: string): Promise<ProductType | null> {
   const { data, error } = await supabase
     .from("products")
