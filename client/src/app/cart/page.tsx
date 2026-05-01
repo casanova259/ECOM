@@ -34,7 +34,7 @@ const CartPage = () => {
 
         {/* Header */}
         <div className="mb-10">
-          <p className="text-xs tracking-[0.4em] text-[#b5a090] uppercase mb-2">Wooltis</p>
+          <p className="text-xs tracking-[0.4em] text-[#b5a090] uppercase mb-2">RASHI KNITWEAR</p>
           <h1
             className="text-4xl md:text-5xl font-black text-[#2c2420]"
             style={{ fontFamily: "var(--font-playfair)" }}

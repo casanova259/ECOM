@@ -17,7 +17,7 @@ const geist = Geist({
 });
 
 export const metadata: Metadata = {
-  title: "Wooltis - Premium Yarns",
+  title: "RASHI KNITWEAR - Premium Yarns",
   description: "Handpicked yarns for every project",
 };
 

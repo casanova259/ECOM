@@ -65,7 +65,7 @@ const SignInPage = () => {
                 <div className="absolute bottom-24 right-24 w-24 h-24 rounded-full border border-[#c9917a]/10" />
 
                 <div className="relative z-10 text-center max-w-sm">
-                    <p className="text-xs tracking-[0.5em] text-[#b5a090] uppercase mb-6">Wooltis</p>
+                    <p className="text-xs tracking-[0.5em] text-[#b5a090] uppercase mb-6">RASHI KNITWEAR</p>
                     <h2
                         className="text-4xl font-black text-white leading-tight mb-6"
                         style={{ fontFamily: "var(--font-playfair)" }}
@@ -87,7 +87,7 @@ const SignInPage = () => {
             <div className="w-full lg:w-1/2 flex items-center justify-center px-6 py-16">
                 <div className="w-full max-w-md">
 
-                    <p className="text-xs tracking-[0.5em] text-[#b5a090] uppercase mb-2 lg:hidden">Wooltis</p>
+                    <p className="text-xs tracking-[0.5em] text-[#b5a090] uppercase mb-2 lg:hidden">RASHI KNITWEAR</p>
 
                     <h1
                         className="text-4xl font-black text-[#2c2420] mb-2"
@@ -97,8 +97,8 @@ const SignInPage = () => {
                     </h1>
                     <p className="text-sm text-[#b5a090] mb-8">
                         {mode === "signin"
-                            ? "Sign in to your Wooltis account."
-                            : "Join Wooltis and start shopping handmade woolens."}
+                            ? "Sign in to your RASHI KNITWEAR account."
+                            : "Join RASHI KNITWEAR and start shopping handmade woolens."}
                     </p>
 
                     {/* Mode toggle */}

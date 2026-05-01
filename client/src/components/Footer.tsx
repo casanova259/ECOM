@@ -13,8 +13,8 @@ const Footer = () => {
           {/* Brand */}
           <div className="flex flex-col gap-5 max-w-xs">
             <Link href="/" className="flex items-center gap-2">
-              <Image src="/logo.png" alt="Wooltis" width={36} height={36} />
-              <span className="text-white font-semibold tracking-[0.15em] text-sm">WOOLTIS</span>
+              <Image src="/logo.png" alt="RASHI KNITWEAR" width={36} height={36} />
+              <span className="text-white font-semibold tracking-[0.15em] text-sm">RASHI KNITWEAR</span>
             </Link>
             <p className="text-[#8a7b72] text-sm leading-relaxed">
               Handcrafted woolen goods made with love, for people who appreciate the warmth of something real.
@@ -71,7 +71,7 @@ const Footer = () => {
 
         {/* Bottom row */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#5a4a44]">
-          <p>© 2025 Wooltis. All rights reserved.</p>
+          <p>© 2025 RASHI KNITWEAR. All rights reserved.</p>
           <p>Made with 🧶 by artisans who care.</p>
         </div>
       </div>

@@ -44,7 +44,7 @@ const ProductPage = async ({
 
           <div className="w-full lg:w-1/2 flex flex-col gap-6 py-4">
             <div>
-              <p className="text-xs tracking-[0.4em] text-[#b5a090] uppercase mb-3">Wooltis Collection</p>
+              <p className="text-xs tracking-[0.4em] text-[#b5a090] uppercase mb-3">RASHI KNITWEAR Collection</p>
               <h1
                 className="text-4xl md:text-5xl font-black text-[#2c2420] leading-tight mb-4"
                 style={{ fontFamily: "var(--font-playfair)" }}

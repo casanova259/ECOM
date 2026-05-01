@@ -7,7 +7,7 @@ const testimonials = [
         handle: "@sara.knits",
         verified: true,
         stars: 5,
-        text: "Absolutely obsessed with my Wooltis sweater. The quality is unreal — soft, warm, and every stitch is perfect. Worth every penny.",
+        text: "Absolutely obsessed with my RASHI KNITWEAR sweater. The quality is unreal — soft, warm, and every stitch is perfect. Worth every penny.",
         tag: "Knitwear",
     },
     {
@@ -28,7 +28,7 @@ const testimonials = [
         handle: "@mia.lifestyle",
         verified: true,
         quote: true,
-        text: "I've ordered 3 times already. The eco-friendly packaging, the care in each item — you can feel the love that goes into it. Wooltis is my go-to for gifting.",
+        text: "I've ordered 3 times already. The eco-friendly packaging, the care in each item — you can feel the love that goes into it. RASHI KNITWEAR is my go-to for gifting.",
         tag: "Handmade",
     },
     {
@@ -49,7 +49,7 @@ const testimonials = [
         handle: "@lauracreative",
         verified: false,
         quote: true,
-        text: "Stumbled upon Wooltis and my mind was blown. The seamless blend of traditional craftsmanship with modern style is a masterclass. Kudos to the whole team!",
+        text: "Stumbled upon RASHI KNITWEAR and my mind was blown. The seamless blend of traditional craftsmanship with modern style is a masterclass. Kudos to the whole team!",
         tag: "Eco-Friendly",
     },
     {
@@ -81,7 +81,7 @@ const testimonials = [
         handle: "@giulia.finds",
         verified: false,
         stars: 5,
-        text: "Wooltis is a complete collection of stunning pieces. Can't believe the value. My whole family wears their products now.",
+        text: "RASHI KNITWEAR is a complete collection of stunning pieces. Can't believe the value. My whole family wears their products now.",
     },
     {
         initials: "RD",
@@ -200,7 +200,7 @@ const TestimonialsSection = () => {
                     Loved by thousands of people
                 </h2>
                 <p className="text-sm text-[#8a7b72]">
-                    Here&apos;s what our customers have to say about Wooltis.
+                    Here&apos;s what our customers have to say about RASHI KNITWEAR.
                 </p>
             </div>
 

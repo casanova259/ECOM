@@ -51,14 +51,14 @@ const Navbar = () => {
         {/* LEFT — Logo */}
         <Link href="/" className="flex items-center gap-2 shrink-0">
           <Image
-            src="/logo.png"
-            alt="Wooltis"
+            src="/logo3.png"
+            alt="RASHI KNITWEAR"
             width={36}
             height={36}
             className="w-7 h-7 md:w-9 md:h-9"
           />
-          <span className="hidden md:block text-sm font-semibold tracking-[0.15em] text-gray-900">
-            WOOLTIS
+          <span className="hidden md:block text-sm font-semibold tracking-[0.15em] text-gray-700">
+            RASHI KNITWEAR
           </span>
         </Link>
 

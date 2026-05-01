@@ -21,7 +21,7 @@ const PaymentForm = ({ shippingData, total }: PaymentFormProps) => {
   const { cart, clearCart } = useCartStore();
 
   const whatsappMessage = encodeURIComponent(
-    `Hi! I'd like to confirm my Wooltis order.\n\nOrder ID: ${orderId || "pending"}\nItems: ${cart.map((i) => `${i.name} (${i.selectedSize}, ${i.selectedColor}) x${i.quantity}`).join(", ")}\nTotal: $${total.toFixed(2)}\n\nShipping to: ${shippingData.name}, ${shippingData.address}, ${shippingData.city}`
+    `Hi! I'd like to confirm my RASHI KNITWEAR order.\n\nOrder ID: ${orderId || "pending"}\nItems: ${cart.map((i) => `${i.name} (${i.selectedSize}, ${i.selectedColor}) x${i.quantity}`).join(", ")}\nTotal: $${total.toFixed(2)}\n\nShipping to: ${shippingData.name}, ${shippingData.address}, ${shippingData.city}`
   );
 
   const handleConfirmOrder = async () => {
@@ -113,7 +113,7 @@ const PaymentForm = ({ shippingData, total }: PaymentFormProps) => {
             <p className="text-xs tracking-[0.3em] text-[#b5a090] uppercase">Scan to Pay</p>
             <div className="w-48 h-48 bg-white rounded-2xl shadow-md flex items-center justify-center border border-[#f0e8df]">
               <div className="flex flex-col items-center gap-2">
-                <QrCode className="w-24 h-24 text-[#2c2420]" />
+                <img src="/QR.png" className="w-24 h-24 text-[#2c2420]" />
                 <p className="text-xs text-[#b5a090]">Your QR here</p>
               </div>
             </div>
