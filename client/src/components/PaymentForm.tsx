@@ -83,7 +83,7 @@ const PaymentForm = ({ shippingData, total }: PaymentFormProps) => {
           <h2 className="text-lg font-black text-[#2c2420]" style={{ fontFamily: "var(--font-playfair)" }}>
             Payment
           </h2>
-          <p className="text-xs text-[#b5a090]">Choose how you'd like to pay</p>
+          <p className="text-xs text-[#b5a090]">Choose how you would like to pay</p>
         </div>
       </div>
 
