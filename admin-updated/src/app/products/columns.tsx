@@ -1,25 +1,26 @@
- "use client";
+"use client";
 
-  import { Button } from "@/components/ui/button";
-  import { Checkbox } from "@/components/ui/checkbox";
-  import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-  } from "@/components/ui/dropdown-menu";
-  import { Badge } from "@/components/ui/badge";
-  import { cn } from "@/lib/utils";
-  import { Product } from "@/lib/supabase/types";
-  import { ColumnDef } from "@tanstack/react-table";
-  import { ArrowUpDown, MoreHorizontal, Trash2 } from "lucide-react";
-  import Image from "next/image";
-  import { deleteProduct } from "@/lib/actions/products";
-  import { toast } from "sonner"; // add if you use sonner; remove otherwise
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Badge } from "@/components/ui/badge";
+import { Product } from "@/lib/supabase/types";
+import { ColumnDef } from "@tanstack/react-table";
+import { ArrowUpDown, MoreHorizontal, Pencil, Trash2 } from "lucide-react";
+import Image from "next/image";
+import { deleteProduct } from "@/lib/actions/products";
 
-  export const columns: ColumnDef<Product>[] = [
+// Columns now accept an onEdit callback so the DataTable can control the Sheet
+export const getColumns = (
+  onEdit: (product: Product) => void
+): ColumnDef<Product>[] => [
     {
       id: "select",
       header: ({ table }) => (
@@ -99,11 +100,7 @@
       ),
       cell: ({ row }) => {
         const price = parseFloat(row.getValue("price"));
-        return (
-          <span className="font-medium">
-            ${price.toFixed(2)}
-          </span>
-        );
+        return <span className="font-medium">Rs {price.toFixed(2)}</span>;
       },
     },
     {
@@ -123,9 +120,7 @@
         const handleDelete = async () => {
           if (!confirm(`Delete "${product.name}"?`)) return;
           const result = await deleteProduct(product.id);
-          if (!result.success) {
-            alert(`Error: ${result.error}`);
-          }
+          if (!result.success) alert(`Error: ${result.error}`);
         };
 
         return (
@@ -143,6 +138,14 @@
               >
                 Copy product ID
               </DropdownMenuItem>
+              <DropdownMenuSeparator />
+
+              {/* ── Edit ── */}
+              <DropdownMenuItem onClick={() => onEdit(product)}>
+                <Pencil className="mr-2 h-4 w-4" />
+                Edit product
+              </DropdownMenuItem>
+
               <DropdownMenuSeparator />
               <DropdownMenuItem
                 className="text-destructive focus:text-destructive"
