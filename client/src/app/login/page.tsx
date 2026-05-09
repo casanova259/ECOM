@@ -65,7 +65,7 @@ const SignInPage = () => {
                 <div className="absolute bottom-24 right-24 w-24 h-24 rounded-full border border-[#c9917a]/10" />
 
                 <div className="relative z-10 text-center max-w-sm">
-                    <p className="text-xs tracking-[0.5em] text-[#b5a090] uppercase mb-6">RASHI KNITWEAR</p>
+                    <p className="text-xs tracking-[0.5em] text-[#fbe6d7] uppercase mb-6">RASHI KNITWEAR</p>
                     <h2
                         className="text-4xl font-black text-white leading-tight mb-6"
                         style={{ fontFamily: "var(--font-playfair)" }}
