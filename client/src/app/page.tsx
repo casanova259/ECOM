@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import BentoSection from "./bento";
 import TestimonialsSection from "@/components/Testimonials";
+import AboutPage from "./about";
 
 const Homepage = async ({
   searchParams,
@@ -45,6 +46,8 @@ const Homepage = async ({
           SHOP NOW
         </Link>
       </div>
+
+      <AboutPage/>
       <BentoSection />
       <section className="max-w-[1400px] mx-auto px-6">
 

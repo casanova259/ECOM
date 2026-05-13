@@ -6,14 +6,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
-const fadeUp = {
-    hidden: { opacity: 0, y: 30 },
-    visible: (i: number) => ({
-        opacity: 1,
-        y: 0,
-        transition: { delay: i * 0.1, duration: 0.6, ease: [0.22, 1, 0.36, 1] },
-    }),
-};
+// const fadeUp = {
+//     hidden: { opacity: 0, y: 30 },
+//     visible: (i: number) => ({
+//         opacity: 1,
+//         y: 0,
+//         transition: { delay: i * 0.1, duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+//     }),
+// };
 
 const BentoGrid = () => {
     return (
@@ -55,7 +55,7 @@ const BentoGrid = () => {
                         initial="hidden"
                         whileInView="visible"
                         viewport={{ once: true }}
-                        variants={fadeUp}
+                        // variants={fadeUp}
                         className="sm:col-span-2 xl:col-span-2 xl:row-span-2 relative rounded-3xl overflow-hidden bg-[#e8ddd4] group cursor-pointer"
                     >
                         <Link href="/products?category=sweaters" className="block w-full h-full">
@@ -95,7 +95,7 @@ const BentoGrid = () => {
                         initial="hidden"
                         whileInView="visible"
                         viewport={{ once: true }}
-                        variants={fadeUp}
+                        // variants={fadeUp}
                         className="xl:row-span-2 relative rounded-3xl overflow-hidden bg-[#f0e8df] group cursor-pointer"
                     >
                         <Link href="/products?category=womens-sweaters" className="block w-full h-full">
@@ -138,7 +138,7 @@ const BentoGrid = () => {
                         initial="hidden"
                         whileInView="visible"
                         viewport={{ once: true }}
-                        variants={fadeUp}
+                        // variants={fadeUp}
                         className="sm:col-span-2 xl:col-span-2 relative rounded-3xl overflow-hidden bg-[#2c2420] group cursor-pointer flex items-center"
                     >
                         <Link href="/about" className="block w-full h-full">
@@ -165,7 +165,7 @@ const BentoGrid = () => {
                         initial="hidden"
                         whileInView="visible"
                         viewport={{ once: true }}
-                        variants={fadeUp}
+                        // variants={fadeUp}
                         className="relative rounded-3xl overflow-hidden bg-[#c9917a] group cursor-pointer flex flex-col items-center justify-center text-center p-8"
                     >
                         <Link href="/products" className="block w-full h-full absolute inset-0 z-10" />
