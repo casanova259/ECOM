@@ -80,10 +80,7 @@ const ProductPage = async ({
             </div>
 
             <div className="flex items-center gap-3 flex-wrap">
-              <span className="text-xs text-[#b5a090]">Secure payments via</span>
-              <Image src="/klarna.png" alt="klarna" width={50} height={25} className="rounded-md opacity-70 hover:opacity-100 transition-opacity" />
-              <Image src="/cards.png" alt="cards" width={50} height={25} className="rounded-md opacity-70 hover:opacity-100 transition-opacity" />
-              <Image src="/stripe.png" alt="stripe" width={50} height={25} className="rounded-md opacity-70 hover:opacity-100 transition-opacity" />
+              <span className="text-xs text-[#323232]">Made With Love And Care</span>
             </div>
 
             <p className="text-[#b5a090] text-xs leading-relaxed">

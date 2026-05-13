@@ -6,7 +6,7 @@ import TodoList from "@/components/TodoList";
 import { getDashboardStats } from "@/lib/actions/orders";
 import { getProducts } from "@/lib/actions/products";
 import { getOrders } from "@/lib/actions/orders";
-import { Package, Users, ShoppingBag, DollarSign } from "lucide-react";
+import { Package, Users, ShoppingBag, IndianRupeeIcon } from "lucide-react";
 
 const StatCard = ({
   label,
@@ -52,8 +52,8 @@ const Homepage = async () => {
         <StatCard label="Total Orders" value={stats.totalOrders} icon={ShoppingBag} />
         <StatCard
           label="Revenue"
-          value={`$${stats.totalRevenue.toLocaleString()}`}
-          icon={DollarSign}
+          value={`₹${stats.totalRevenue.toLocaleString()}`}
+          icon={IndianRupeeIcon}
           sub="Successful orders only"
         />
       </div>
