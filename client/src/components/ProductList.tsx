@@ -51,7 +51,7 @@ const ProductList = async ({ category, params }: ProductListProps) => {
       {params === "products" && <Filter />}
 
       {/* Section header */}
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex items-center justify-between mb-8 pt-5">
         <div>
           <p className="text-xs tracking-[0.3em] text-[#b5a090] uppercase mb-1">
             {params === "homepage" ? "Hand-crafted with love" : `${categoryLabel}'s Collection`}

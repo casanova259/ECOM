@@ -47,12 +47,12 @@ const Homepage = async ({
         </Link>
       </div>
 
-      <AboutPage/>
+      <AboutPage />
       <BentoSection />
       <section className="max-w-[1400px] mx-auto px-6">
 
-        <TestimonialsSection/>
         <ProductList category={category} params="homepage" />
+        <TestimonialsSection />
       </section>
     </div>
   );
