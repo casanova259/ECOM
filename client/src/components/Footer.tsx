@@ -37,15 +37,26 @@ const Footer = () => {
             {[
               {
                 title: "Shop",
-                links: ["All Products", "New Arrivals", "Best Sellers", "Sale"],
+                links: [
+                  { label: "All Products", href: "/products" },
+                  { label: "New Arrivals", href: "/products?category=new-arrivals" },
+                  { label: "Best Sellers", href: "/products?category=best-sellers" },
+                  { label: "Sale", href: "/products?category=sale" },
+                ],
               },
               {
                 title: "Company",
-                links: ["About Us", "Our Story", "Blog", "Affiliate Program"],
+                links: [
+                  { label: "About Us", href: "/#about" },
+                  { label: "Our Story", href: "/#about#story" },
+                ],
               },
               {
                 title: "Support",
-                links: ["Contact", "Shipping Info", "Returns", "Privacy Policy"],
+                links: [
+                  { label: "Contact", href: "/contact" },
+                 ,
+                ],
               },
             ].map((col) => (
               <div key={col.title} className="flex flex-col gap-4">
@@ -54,11 +65,11 @@ const Footer = () => {
                 </p>
                 {col.links.map((link) => (
                   <Link
-                    key={link}
-                    href="/"
+                    key={link.label}
+                    href={link.href}
                     className="text-sm text-[#8a7b72] hover:text-white transition-colors"
                   >
-                    {link}
+                    {link.label}
                   </Link>
                 ))}
               </div>
@@ -75,8 +86,8 @@ const Footer = () => {
           <p>Made with 🧶 by artisans who care.</p>
         </div>
       </div>
-    </footer> 
+    </footer>
   );
 };
 
-export default Footer;  
+export default Footer;

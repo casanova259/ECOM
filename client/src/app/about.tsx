@@ -24,7 +24,7 @@ const values = [
 
 export default function AboutPage() {
     return (
-        <main className="bg-[#F5F0EA] min-h-screen font-sans">
+        <main id="about" className="bg-[#F5F0EA] min-h-screen font-sans">
 
             {/* ── HERO + INTRO merged ── */}
             <section className="bg-[#2C2420] px-8 md:px-16 py-24 md:py-32">
