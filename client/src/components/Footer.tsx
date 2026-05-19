@@ -55,7 +55,7 @@ const Footer = () => {
                 title: "Support",
                 links: [
                   { label: "Contact", href: "/contact" },
-                 ,
+                ,
                 ],
               },
             ].map((col) => (
@@ -65,11 +65,11 @@ const Footer = () => {
                 </p>
                 {col.links.map((link) => (
                   <Link
-                    key={link.label}
-                    href={link.href}
+                    key={link?.label}
+                    href={link?.href}
                     className="text-sm text-[#8a7b72] hover:text-white transition-colors"
                   >
-                    {link.label}
+                    {link?.label}
                   </Link>
                 ))}
               </div>
