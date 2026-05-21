@@ -3,7 +3,7 @@ import ProductCard from "./ProductCard";
 import Filter from "./Filter";
 import CategoryNav from "@/components/CategoryNav";
 import { getProducts, getProductsByCategory } from "@/lib/products";
-import { ProductCategory } from "@/types";
+import { ProductCategory, ProductType } from "@/types";
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 const AVAILABLE_CATEGORIES: ProductCategory[] = ["women", "men", "children"];
@@ -24,7 +24,8 @@ const ProductList = async ({ category, params }: ProductListProps) => {
     activeCategory.charAt(0).toUpperCase() + activeCategory.slice(1);
 
   // ─── Fetch products ───────────────────────────────────────────────────────
-  let products;
+  let products: ProductType[] = [];
+
   try {
     products =
       params === "homepage"

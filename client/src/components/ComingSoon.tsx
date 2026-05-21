@@ -24,3 +24,5 @@ const ComingSoon = ({ category }: { category: string }) => (
         </Link>
     </div>
 );
+
+export default ComingSoon; // 👈 was missing

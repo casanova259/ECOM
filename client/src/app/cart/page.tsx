@@ -7,7 +7,7 @@ import { ShippingFormInputs } from "@/types";
 import { ArrowRight, Trash2, ShoppingBag, Plus, Minus } from "lucide-react";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import Link from "next/link";
 
 const steps = [
@@ -16,7 +16,8 @@ const steps = [
   { id: 3, title: "Payment" },
 ];
 
-const CartPage = () => {
+// ─── Inner component that uses useSearchParams ─────────────────────────────
+const CartPageInner = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [shippingForm, setShippingForm] = useState<ShippingFormInputs>();
@@ -49,10 +50,10 @@ const CartPage = () => {
             <div key={step.id} className="flex items-center">
               <div className="flex flex-col items-center gap-1.5">
                 <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-300 ${step.id === activeStep
-                    ? "bg-[#2c2420] text-white"
-                    : step.id < activeStep
-                      ? "bg-[#c9917a] text-white"
-                      : "bg-[#e8ddd4] text-[#b5a090]"
+                  ? "bg-[#2c2420] text-white"
+                  : step.id < activeStep
+                    ? "bg-[#c9917a] text-white"
+                    : "bg-[#e8ddd4] text-[#b5a090]"
                   }`}>
                   {step.id < activeStep ? "✓" : step.id}
                 </div>
@@ -249,5 +250,16 @@ const CartPage = () => {
     </div>
   );
 };
+
+// ─── Outer page wraps inner in Suspense ────────────────────────────────────
+const CartPage = () => (
+  <Suspense fallback={
+    <div className="min-h-screen bg-[#faf7f2] flex items-center justify-center">
+      <p className="text-[#b5a090] text-sm tracking-widest uppercase">Loading...</p>
+    </div>
+  }>
+    <CartPageInner />
+  </Suspense>
+);
 
 export default CartPage;

@@ -8,17 +8,17 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 );
 
-function mapProduct(p: Record<string, any>): ProductType {
+function mapProduct(p: Record<string, unknown>): ProductType {
   return {
-    id: p.id,
-    name: p.name,
-    category: p.category,
-    shortDescription: p.short_description,
-    description: p.description,
-    price: p.price,
-    sizes: p.sizes,
-    colors: p.colors,
-    images: p.images,
+    id: p.id as ProductType["id"],
+    name: p.name as string,
+    category: p.category as ProductCategory,
+    shortDescription: p.short_description as string,
+    description: p.description as string,
+    price: p.price as number,
+    sizes: p.sizes as ProductType["sizes"],
+    colors: p.colors as string[],
+    images: p.images as ProductType["images"],
   };
 }
 

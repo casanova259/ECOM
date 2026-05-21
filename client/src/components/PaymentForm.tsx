@@ -5,6 +5,7 @@ import { useState } from "react";
 import { createOrder } from "@/lib/orders";
 import useCartStore from "@/stores/cartStore";
 import { ShippingFormInputs } from "@/types";
+import Image from "next/image";
 
 const WHATSAPP_NUMBER = " 98729 92930";
 
@@ -35,8 +36,8 @@ const PaymentForm = ({ shippingData, total }: PaymentFormProps) => {
       } else {
         alert(result.error || "Failed to place order. Please try again.");
       }
-    } catch (err) {
-      alert("Something went wrong. Please try again.");
+    } catch (_err) {
+      alert(_err);
     } finally {
       setLoading(false);
     }
@@ -96,11 +97,10 @@ const PaymentForm = ({ shippingData, total }: PaymentFormProps) => {
           <button
             key={key}
             onClick={() => setMethod(key as "online" | "offline")}
-            className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-2xl text-sm font-semibold border-2 transition-all duration-200 ${
-              method === key
+            className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-2xl text-sm font-semibold border-2 transition-all duration-200 ${method === key
                 ? "border-[#2c2420] bg-[#2c2420] text-white"
                 : "border-[#e8ddd4] bg-white text-[#8a7b72] hover:border-[#c9917a]"
-            }`}
+              }`}
           >
             <Icon className="w-4 h-4" /> {label}
           </button>
@@ -113,7 +113,7 @@ const PaymentForm = ({ shippingData, total }: PaymentFormProps) => {
             <p className="text-xs tracking-[0.3em] text-[#b5a090] uppercase">Scan to Pay</p>
             <div className="w-48 h-48 bg-white rounded-2xl shadow-md flex items-center justify-center border border-[#f0e8df]">
               <div className="flex flex-col items-center gap-2">
-                <img src="/QR.png" className="w-24 h-24 text-[#2c2420]" />
+                <Image src="/QR.png" alt="UPI QR Code" width={96} height={96} />
                 <p className="text-xs text-[#b5a090]">Your QR here</p>
               </div>
             </div>

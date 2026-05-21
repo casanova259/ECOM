@@ -1,7 +1,6 @@
 import ProductInteraction from "@/components/ProductInteraction";
 import ProductGallery from "@/components/ProductGallery";
 import { getProductById } from "@/lib/products";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 

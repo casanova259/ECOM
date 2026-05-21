@@ -66,7 +66,7 @@ const Footer = () => {
                 {col.links.map((link) => (
                   <Link
                     key={link?.label}
-                    href={link?.href}
+                    href={link?.href ?? '#'}
                     className="text-sm text-[#8a7b72] hover:text-white transition-colors"
                   >
                     {link?.label}

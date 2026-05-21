@@ -46,8 +46,8 @@ const SignInPage = () => {
                 router.push("/");
                 router.refresh();
             }
-        } catch (err: any) {
-            setError(err.message ?? "Something went wrong. Please try again.");
+        } catch (err: unknown) {
+            setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
         } finally {
             setLoading(false);
         }
@@ -107,11 +107,10 @@ const SignInPage = () => {
                             <button
                                 key={m}
                                 onClick={() => { setMode(m); setError(""); setSuccessMsg(""); }}
-                                className={`flex-1 py-2 rounded-xl text-xs font-semibold tracking-wide transition-all duration-200 ${
-                                    mode === m
+                                className={`flex-1 py-2 rounded-xl text-xs font-semibold tracking-wide transition-all duration-200 ${mode === m
                                         ? "bg-[#2c2420] text-white shadow-sm"
                                         : "text-[#b5a090] hover:text-[#2c2420]"
-                                }`}
+                                    }`}
                             >
                                 {m === "signin" ? "Sign In" : "Sign Up"}
                             </button>

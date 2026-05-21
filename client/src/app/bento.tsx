@@ -118,7 +118,7 @@ const BentoGrid = () => {
                                     className="text-3xl font-black text-white mb-2 leading-tight"
                                     style={{ fontFamily: "var(--font-playfair)" }}
                                 >
-                                    Women's
+                                    Women&apos;s
                                     <br />
                                     Sweaters
                                 </h3>
