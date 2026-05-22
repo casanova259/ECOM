@@ -7,7 +7,7 @@ import useCartStore from "@/stores/cartStore";
 import { ShippingFormInputs } from "@/types";
 import Image from "next/image";
 
-const WHATSAPP_NUMBER = " 98729 92930";
+const WHATSAPP_NUMBER = "919872992930";
 
 interface PaymentFormProps {
   shippingData: ShippingFormInputs;
