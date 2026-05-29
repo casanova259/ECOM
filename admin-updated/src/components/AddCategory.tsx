@@ -27,7 +27,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { supabaseAdmin } from "@/lib/supabase/client";
 import { useState } from "react";
 import { Loader2 } from "lucide-react";
 

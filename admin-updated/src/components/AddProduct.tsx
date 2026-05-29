@@ -112,8 +112,8 @@ const AddProduct = () => {
       setSuccessMsg("Product added successfully!");
       form.reset();
       setImageFiles({});
-    } catch (err: any) {
-      setErrorMsg(err.message ?? "Something went wrong.");
+    } catch (err) {
+      setErrorMsg(err instanceof Error ? err.message : "Something went wrong.");
     } finally {
       setLoading(false);
     }

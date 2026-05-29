@@ -30,7 +30,7 @@ const StatCard = ({
 );
 
 const Homepage = async () => {
-  const [stats, products, orders] = await Promise.all([
+  const [stats, , orders] = await Promise.all([
     getDashboardStats().catch(() => ({
       totalProducts: 0,
       totalUsers: 0,

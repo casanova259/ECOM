@@ -1,5 +1,4 @@
 import {
-  Home,
   CreditCard,
   Settings,
   User2,
@@ -7,7 +6,6 @@ import {
   Plus,
   Shirt,
   User,
-  ShoppingBasket,
   LayoutDashboard,
   Tag,
 } from "lucide-react";
@@ -16,7 +14,6 @@ import {
   SidebarContent,
   SidebarFooter,
   SidebarGroup,
-  SidebarGroupAction,
   SidebarGroupContent,
   SidebarGroupLabel,
   SidebarHeader,

@@ -28,14 +28,13 @@ import { useRouter } from "next/navigation";
 
 
 
-interface DataTableProps<TData, TValue> {
-  value:TValue,
+interface DataTableProps<TData> {
   data: TData[];
 }
 
-export function DataTable<TData, TValue>({
+export function DataTable<TData>({
   data,
-}: DataTableProps<TData, TValue>) {
+}: DataTableProps<TData>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [rowSelection, setRowSelection] = useState({});
 
@@ -48,7 +47,7 @@ export function DataTable<TData, TValue>({
     setEditSheetOpen(true);
   };
 
-  const router=useRouter();
+  const router = useRouter();
 
   // ─────────────────────────────────────────────────────────────────
 

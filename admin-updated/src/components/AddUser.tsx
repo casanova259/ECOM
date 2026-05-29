@@ -67,8 +67,8 @@ const AddUser = () => {
       if (!result.success) throw new Error(result.error);
       setSuccessMsg("User added successfully!");
       form.reset();
-    } catch (err: any) {
-      setErrorMsg(err.message ?? "Something went wrong.");
+    } catch (err) {
+      setErrorMsg(err instanceof Error ? err.message : "Something went wrong.");
     } finally {
       setLoading(false);
     }
