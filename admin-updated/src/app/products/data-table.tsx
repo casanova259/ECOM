@@ -1,7 +1,6 @@
 "use client";
 
 import {
-  ColumnDef,
   flexRender,
   getCoreRowModel,
   getPaginationRowModel,
@@ -30,7 +29,7 @@ import { useRouter } from "next/navigation";
 
 
 interface DataTableProps<TData, TValue> {
-  
+  value:TValue,
   data: TData[];
 }
 
