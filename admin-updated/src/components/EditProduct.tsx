@@ -74,9 +74,7 @@ interface EditProductProps {
 }
 
 const EditProduct = ({ product, onSuccess }: EditProductProps) => {
-    // Tracks newly picked image files (only colors re-uploaded)
     const [imageFiles, setImageFiles] = useState<Record<string, File>>({});
-    // Keeps existing image URLs from the product so unchanged colors are preserved
     const [existingImages, setExistingImages] = useState<Record<string, string>>(
         (product.images as Record<string, string>) ?? {}
     );
@@ -98,7 +96,6 @@ const EditProduct = ({ product, onSuccess }: EditProductProps) => {
         },
     });
 
-    // Sync existing images whenever the product prop changes (e.g. sheet reopened)
     useEffect(() => {
         setExistingImages((product.images as Record<string, string>) ?? {});
         setImageFiles({});
@@ -112,7 +109,7 @@ const EditProduct = ({ product, onSuccess }: EditProductProps) => {
             sizes: product.sizes as string[],
             colors: product.colors as string[],
         });
-    }, [product]);
+    }, [product, form]);
 
     const selectedColors = form.watch("colors");
 
@@ -122,22 +119,18 @@ const EditProduct = ({ product, onSuccess }: EditProductProps) => {
         setErrorMsg("");
 
         try {
-            // Start from the existing images map, then overwrite only re-uploaded ones
             const images: Record<string, string> = { ...existingImages };
 
             for (const color of values.colors) {
                 const file = imageFiles[color];
                 if (file) {
-                    // New file picked → upload and replace
                     const { url, error } = await uploadProductImage(file, values.name, color);
                     if (error || !url)
                         throw new Error(`Image upload failed for ${color}: ${error}`);
                     images[color] = url;
                 }
-                // No file picked → keep whatever was in existingImages (already copied above)
             }
 
-            // Remove images for colors that were unchecked
             for (const color of Object.keys(images)) {
                 if (!values.colors.includes(color)) {
                     delete images[color];
@@ -160,8 +153,8 @@ const EditProduct = ({ product, onSuccess }: EditProductProps) => {
 
             setSuccessMsg("Product updated successfully!");
             onSuccess?.();
-        } catch (err: any) {
-            setErrorMsg(err.message ?? "Something went wrong.");
+        } catch (err) {
+            setErrorMsg(err instanceof Error ? err.message : "Something went wrong.");
         } finally {
             setLoading(false);
         }
@@ -180,7 +173,6 @@ const EditProduct = ({ product, onSuccess }: EditProductProps) => {
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 pb-12">
 
-                        {/* Name */}
                         <FormField control={form.control} name="name" render={({ field }) => (
                             <FormItem>
                                 <FormLabel>Product Name</FormLabel>
@@ -191,7 +183,6 @@ const EditProduct = ({ product, onSuccess }: EditProductProps) => {
                             </FormItem>
                         )} />
 
-                        {/* Short Description */}
                         <FormField control={form.control} name="short_description" render={({ field }) => (
                             <FormItem>
                                 <FormLabel>Short Description</FormLabel>
@@ -203,7 +194,6 @@ const EditProduct = ({ product, onSuccess }: EditProductProps) => {
                             </FormItem>
                         )} />
 
-                        {/* Full Description */}
                         <FormField control={form.control} name="description" render={({ field }) => (
                             <FormItem>
                                 <FormLabel>Full Description</FormLabel>
@@ -218,7 +208,6 @@ const EditProduct = ({ product, onSuccess }: EditProductProps) => {
                             </FormItem>
                         )} />
 
-                        {/* Price */}
                         <FormField control={form.control} name="price" render={({ field }) => (
                             <FormItem>
                                 <FormLabel>Price (Rs)</FormLabel>
@@ -229,7 +218,6 @@ const EditProduct = ({ product, onSuccess }: EditProductProps) => {
                             </FormItem>
                         )} />
 
-                        {/* Audience */}
                         <FormField control={form.control} name="category" render={({ field }) => (
                             <FormItem>
                                 <FormLabel>Audience</FormLabel>
@@ -250,7 +238,6 @@ const EditProduct = ({ product, onSuccess }: EditProductProps) => {
                             </FormItem>
                         )} />
 
-                        {/* Product Type */}
                         <FormField control={form.control} name="clothing_category" render={({ field }) => (
                             <FormItem>
                                 <FormLabel>Product Type</FormLabel>
@@ -268,7 +255,6 @@ const EditProduct = ({ product, onSuccess }: EditProductProps) => {
                             </FormItem>
                         )} />
 
-                        {/* Sizes */}
                         <FormField control={form.control} name="sizes" render={({ field }) => (
                             <FormItem>
                                 <FormLabel>Available Sizes</FormLabel>
@@ -299,7 +285,6 @@ const EditProduct = ({ product, onSuccess }: EditProductProps) => {
                             </FormItem>
                         )} />
 
-                        {/* Colors + Image Upload */}
                         <FormField control={form.control} name="colors" render={({ field }) => (
                             <FormItem>
                                 <FormLabel>Colors &amp; Images</FormLabel>
@@ -317,7 +302,6 @@ const EditProduct = ({ product, onSuccess }: EditProductProps) => {
                                                                     ? [...current, color]
                                                                     : current.filter((v) => v !== color)
                                                             );
-                                                            // Remove any staged file if color is unchecked
                                                             if (!checked) {
                                                                 setImageFiles((prev) => {
                                                                     const next = { ...prev };
@@ -338,7 +322,6 @@ const EditProduct = ({ product, onSuccess }: EditProductProps) => {
                                             ))}
                                         </div>
 
-                                        {/* Image upload per selected color */}
                                         {selectedColors && selectedColors.length > 0 && (
                                             <div className="mt-4 space-y-3 border rounded-md p-3 bg-muted/40">
                                                 <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
@@ -361,7 +344,6 @@ const EditProduct = ({ product, onSuccess }: EditProductProps) => {
                                                                     setImageFiles((prev) => ({ ...prev, [color]: file }));
                                                             }}
                                                         />
-                                                        {/* Show new file indicator OR existing image indicator */}
                                                         {imageFiles[color] ? (
                                                             <span className="text-xs text-green-600 whitespace-nowrap">✓ new</span>
                                                         ) : existingImages[color] ? (
@@ -377,7 +359,6 @@ const EditProduct = ({ product, onSuccess }: EditProductProps) => {
                             </FormItem>
                         )} />
 
-                        {/* Feedback */}
                         {successMsg && (
                             <p className="text-sm text-green-600 font-medium">{successMsg}</p>
                         )}
