@@ -37,7 +37,7 @@ const formSchema = z.object({
   phone: z.string().min(7).max(20).optional().or(z.literal("")),
   address: z.string().min(2).optional().or(z.literal("")),
   city: z.string().min(2).optional().or(z.literal("")),
-  status: z.enum(["active", "inactive"]).default("active"),
+  status: z.enum(["active", "inactive"]),
 });
 
 const AddUser = () => {
@@ -45,9 +45,9 @@ const AddUser = () => {
   const [successMsg, setSuccessMsg] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
 
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<z.infer<typeof formSchema>, unknown, z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: { status: "active" },
+    defaultValues: { status: "active" as const },
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
